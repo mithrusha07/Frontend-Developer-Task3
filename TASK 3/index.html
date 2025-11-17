@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Professional Gradient Background</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      transition: background 1s ease;
+      background: linear-gradient(135deg, #ff416c, #ff4b2b, #1fd1f9, #2dffc7);
+      background-size: 400% 400%;
+      animation: gradientShift 20s ease infinite;
+      color: #000; /* changed text color to black */
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 2.5rem;
+      text-shadow: 0 2px 5px rgba(255,255,255,0.3); /* subtle shadow for visibility */
+    }
+
+    button {
+      padding: 15px 35px;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      background-color: #fff;
+      color: #ff416c;
+      cursor: pointer;
+      transition: transform 0.3s, background-color 0.3s, color 0.3s;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      margin-bottom: 15px;
+    }
+
+    button:hover {
+      background-color: #ff416c;
+      color: #fff;
+      transform: scale(1.1);
+    }
+
+    #currentColors {
+      font-size: 1.2rem;
+      padding: 10px 20px;
+      border-radius: 8px;
+      background-color: rgba(255,255,255,0.3);
+      color: #000; /* display text also black */
+      transition: color 0.3s, background-color 0.3s;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Click to change background gradient!</h1>
+  <button id="colorBtn">Change Colors</button>
+  <div id="currentColors">#ff416c, #ff4b2b, #1fd1f9, #2dffc7</div>
+
+  <script>
+    const button = document.getElementById('colorBtn');
+    const colorDisplay = document.getElementById('currentColors');
+
+    function getRandomColor() {
+      const letters = '0123456789ABCDEF';
+      let color = '#';
+      for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+
+    function updateGradient() {
+      const colors = [getRandomColor(), getRandomColor(), getRandomColor(), getRandomColor()];
+      document.body.style.animation = 'none';
+      document.body.style.background = `linear-gradient(135deg, ${colors.join(', ')})`;
+
+      // Display all 4 colors
+      colorDisplay.textContent = colors.join(', ');
+
+      // Ensure display background remains semi-transparent white for contrast
+      colorDisplay.style.backgroundColor = 'rgba(255,255,255,0.3)';
+      colorDisplay.style.color = '#000';
+
+      setTimeout(() => {
+        document.body.style.animation = 'gradientShift 20s ease infinite';
+      }, 50);
+    }
+
+    button.addEventListener('click', updateGradient);
+  </script>
+
+</body>
+</html>
